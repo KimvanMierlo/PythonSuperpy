@@ -145,7 +145,7 @@ def filterInventory(id, name, date, mindate, maxdate, withExpired = True):
             d = stringToDate(maxdate)
         items = list(filter(lambda x: x['date_bought'] <= d, items))
     if (withExpired == False):
-        items = list(filter(lambda x: x['date_expired'] < todayGet(), items))
+        items = list(filter(lambda x: x['date_expired'] > todayGet(), items))
 
     return items
 
@@ -274,6 +274,8 @@ def attemptSellProduct():
         items = filterInventory(None, args.name, None, None, None, False)
     else: 
         items = filterInventory(args.id, args.name, None, None, None, False)
+
+
 
     items = setAvailability(items)
     items = list(filter(lambda x: x['available'] > 0, items))
